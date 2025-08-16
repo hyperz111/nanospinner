@@ -7,10 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      picocolors:
-        specifier: ^1.1.1
-        version: 1.1.1
     devDependencies:
       '@types/node':
         specifier: ^22.8.4
@@ -289,9 +285,6 @@ packages:
   path-scurry@1.11.1:
     resolution: {integrity: sha512-Xa4Nw17FS9ApQFJ9umLiJS4orGjm7ZzwUrwamcGQuHSzDyth9boKDaycYdDcZDuqYATXw4HFXgaqWTctW/v1HA==}
     engines: {node: '>=16 || 14 >=14.18'}
-
-  picocolors@1.1.1:
-    resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
 
   picomatch@2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
@@ -652,8 +645,6 @@ snapshots:
     dependencies:
       lru-cache: 10.4.3
       minipass: 7.1.2
-
-  picocolors@1.1.1: {}
 
   picomatch@2.3.1: {}
 
