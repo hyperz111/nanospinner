@@ -1,5 +1,10 @@
 import tty from 'node:tty'
 import process from 'node:process'
+import { inspect } from 'node:util'
+
+const colorNames = Object.entries(inspect.colors)
+  .filter((i: any[]) => i[1][1] == 39)
+  .map((i: any[]) => i[0])
 
 /**
  * This file contains code adapted from the following projects:
@@ -39,4 +44,4 @@ const symbols = {
   info: supportUnicode ? 'ℹ' : 'i',
 }
 
-export { isTTY, symbols }
+export { isTTY, symbols, colorNames }

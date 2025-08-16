@@ -1,8 +1,26 @@
-import type { Colors } from 'picocolors/types'
-import pc from 'picocolors'
-import { isTTY, symbols } from './consts'
+import { styleText } from 'node:util'
+import { isTTY, symbols, colorNames } from './consts'
 
-type Color = keyof Omit<Colors, 'isColorSupported'>
+// From https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/node
+type Color =
+  | 'black'
+  | 'blackBright'
+  | 'blue'
+  | 'blueBright'
+  | 'cyan'
+  | 'cyanBright'
+  | 'gray'
+  | 'green'
+  | 'greenBright'
+  | 'grey'
+  | 'magenta'
+  | 'magentaBright'
+  | 'red'
+  | 'redBright'
+  | 'white'
+  | 'whiteBright'
+  | 'yellow'
+  | 'yellowBright'
 
 interface Options {
   stream?: NodeJS.WriteStream
@@ -90,7 +108,7 @@ export function createSpinner(text = '', opts: Options = {}) {
     },
 
     render() {
-      let str = `${pc[color](frames[current])} ${text}`
+      let str = `${addColor(color, frames[current])} ${text}`
       isTTY ? spinner.write(`\x1b[?25l`) : (str += '\n')
       spinner.write(str, true)
       isTTY && (lines = getLines(str, stream.columns))
@@ -136,7 +154,7 @@ export function createSpinner(text = '', opts: Options = {}) {
       cleanupProcessEvents()
 
       const update = getUpdate(opts)
-      const mark = pc[getColor(opts)](getMark(opts, frames[current]))
+      const mark = addColor(getColor(opts), getMark(opts, frames[current]))
       const text = getText(opts)
 
       spinner.write(opts ? `${mark} ${text}${update ? '' : '\n'}` : '', true)
@@ -191,6 +209,11 @@ export function createSpinner(text = '', opts: Options = {}) {
     }
 
     process.exit(signal === 'SIGINT' ? 130 : signal === 'SIGTERM' ? 143 : 1)
+  }
+
+  function addColor(name: Color, text: string) {
+    if (!colorNames.includes(name)) return text
+    return styleText([name], text)
   }
 
   return spinner
